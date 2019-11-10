@@ -1,11 +1,15 @@
-body {
+body header {
     background-image: url("../img/conference.jpg");
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
     color: white;
     text-align: center;
-    background-attachment: scroll;  
+    background-attachment: scroll;
+}
+
+.masthead, section {
+    height: 100vh;
 }
 
 header.masthead {
@@ -14,23 +18,25 @@ header.masthead {
 }
 
 header.masthead .intro-text {
-    padding-top: 150px;
-    padding-bottom: 100px;
+    position: absolute;    
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 header.masthead .intro-text .intro-lead-in {
-    font-size: 22px;
+    font-size: 2vmax;
     font-style: italic;
-    line-height: 22px;
-    margin-bottom: 25px;
+    line-height: 2vmax;
+    margin-bottom: 2vmax;
     font-family: 'Droid Serif', 'Helvetica Neue', Helvetica, sans-serif;
 }
 
 header.masthead .intro-text .intro-heading {
-    font-size: 50px;
+    font-size: 4vmax;
     font-weight: 700;
-    line-height: 50px;
-    margin-bottom: 25px;
+    line-height: 4vmax;
+    margin-bottom: 2vmax;
     font-family: 'Montserrat', 'Helvetica Neue', Helvetica, sans-serif;
 }
 
@@ -40,8 +46,9 @@ header.masthead .intro-text .intro-heading {
 }
 
 .intro-text .btn-xl {
-    font-size: 18px;
-    padding: 20px 40px;
+    font-size: 1.8vmax;
+    padding: 4vh 6vw;
+    line-height: 1vmax;
 }
 
 .intro-text .btn-primary {
@@ -55,4 +62,56 @@ header.masthead .intro-text .intro-heading {
     background-color: #3677b1;
     border-color: #3677b1;
     color: white;
+}
+
+section {
+    padding: calc(5vh + 3vw + 2vmin) 0;
+}
+
+section h2.section-heading {
+    font-size: 3vmax;
+}
+
+section h3.section-subheading {
+    font-size: calc(1vw + 1vh + .5vmin);
+    font-weight: 400;
+    font-style: italic;
+    margin-bottom: 6vh;
+    text-transform: none;
+    font-family: 'Droid Serif', 'Helvetica Neue', Helvetica, sans-serif;
+}
+
+.topic-heading {
+    margin: 15px 0;
+}
+
+.speaker-name {
+    margin-top: 15px;
+}
+
+ul.social-buttons li a {
+    font-size: 20px;
+    line-height: 40px;
+    display: block;
+    width: 40px;
+    height: 40px;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+    color: white;
+    border-radius: 100%;
+    outline: none;
+    background-color: #212529;
+}
+
+#speakers {
+    background-color: lightgray;
+}
+
+.conference-speaker img {
+    border: 2px solid white;
+}
+
+.speakers-footing {
+    margin-top: 6vh;
 }
