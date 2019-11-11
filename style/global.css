@@ -108,6 +108,10 @@ ul.social-buttons li a {
     background-color: lightgray;
 }
 
+#speakers h4, #speakers img {
+    cursor: pointer;
+}
+
 .conference-speaker img {
     border: 2px solid white;
 }

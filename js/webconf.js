@@ -111,8 +111,8 @@ window.onload = function () {
                 let name = speakers[speaker].name;
                 let bio = speakers[speaker].bio;
                 htmlSpeakers = htmlSpeakers + '<div class="col-sm-4">';
-                htmlSpeakers = htmlSpeakers + '<img class="mx-auto rounded-circle" src="./img/spinner.gif" style="width:150px;height:150px;" alt=""></img>';
-                htmlSpeakers = htmlSpeakers + `<h4 class="speaker-name">${name}</h4>`;
+                htmlSpeakers = htmlSpeakers + '<img onclick="showSpeakerPopup(this)" class="mx-auto rounded-circle" src="./img/spinner.gif" style="width:150px;height:150px;" alt=""></img>';
+                htmlSpeakers = htmlSpeakers + `<h4 onclick="showSpeakerPopup(this)" class="speaker-name">${name}</h4>`;
                 htmlSpeakers = htmlSpeakers + `<p class="text-muted">${bio}</p>`;
                 htmlSpeakers = htmlSpeakers + '<ul class="list-inline social-buttons">';
                 htmlSpeakers = htmlSpeakers + '<li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>';
@@ -142,7 +142,7 @@ async function addSpeakerPhotos() {
 async function getRandomPhoto(img) {
     //console.log('get random photo');
     //console.log(img);
-    fetch('https://picsum.photos/150/150')
+    fetch('https://picsum.photos/300/300')
         .then(response => response.blob())
         .then(function (imgblob) {
             //console.log(imgblob);
@@ -151,23 +151,20 @@ async function getRandomPhoto(img) {
         });
 }
 
-/*
-<div id="image-holder"></div>
-<script>
-  function loadImage(url) {
-    return new Promise((resolve, reject) => {
-      let img = new Image();
-      img.addEventListener('load', e => resolve(img));
-      img.addEventListener('error', () => {
-        reject(new Error(`Failed to load image's URL: ${url}`));
-      });
-      img.src = url;
-    });
-  }
+function showSpeakerPopup(elem) {
+    console.log(elem.parentElement);
+    let div = elem.parentElement;
+    let name = div.getElementsByTagName('h4')[0].innerText;
+    let bio = div.getElementsByTagName('p')[0].innerText;
+    let photo = div.getElementsByTagName('img')[0].src;
 
-  // load the image, and append it to the element id="image-holder"
-  loadImage('http://thecatapi.com/api/images/get?format=src&type=jpg&size=small')
-    .then(img => document.getElementById('image-holder').appendChild(img))
-    .catch(error => console.error(error));
-
-</script>*/
+    Swal.fire({
+        title: name,
+        text: bio,
+        imageUrl: photo,
+        imageHeight: 300,
+        imageWidth: 300,
+        imageAlt: name + ' profile picture.',
+        animation: false
+    })
+};
