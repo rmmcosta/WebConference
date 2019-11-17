@@ -96,10 +96,7 @@ window.onload = function () {
                 mode: 'cors', // no-cors, *cors, same-origin
                 cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
                 credentials: 'same-origin', // include, *same-origin, omit
-                headers: {
-                    'Content-Type': 'application/json'
-                    // 'Content-Type': 'application/x-www-form-urlencoded',
-                },
+                headers: jsonHeaders,
                 redirect: 'follow', // manual, *follow, error
                 referrer: 'no-referrer', // no-referrer, *client
             });
@@ -147,10 +144,7 @@ window.onload = function () {
                 mode: 'cors', // no-cors, *cors, same-origin
                 cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
                 credentials: 'same-origin', // include, *same-origin, omit
-                headers: {
-                    'Content-Type': 'application/json'
-                    // 'Content-Type': 'application/x-www-form-urlencoded',
-                },
+                headers: jsonHeaders,
                 redirect: 'follow', // manual, *follow, error
                 referrer: 'no-referrer', // no-referrer, *client
             });
@@ -166,7 +160,7 @@ window.onload = function () {
                 let link = sponsors[sponsor].link;
                 htmlSponsors = htmlSponsors + '<div class="col-md-3 col-sm-3">';
                 htmlSponsors = htmlSponsors + `<a href="https://${link}" target="_blank">`;
-                htmlSponsors = htmlSponsors + '<img class="img-fluid d-block mx-auto" src=".'+logo+'" style="width:200px;height:80px;" alt="'+name+'"></img>';
+                htmlSponsors = htmlSponsors + '<img class="img-fluid d-block mx-auto" src=".' + logo + '" style="width:200px;height:80px;" alt="' + name + '"></img>';
                 htmlSponsors = htmlSponsors + `<h4 class="sponsor-name">${name}</h4>`;
                 htmlSponsors = htmlSponsors + '</a>';
                 htmlSponsors = htmlSponsors + `<p class="text-muted">${category}</p>`;
@@ -178,6 +172,28 @@ window.onload = function () {
         }
 
     })();
+
+    //on contact submit
+    const contactForm = document.getElementById('contactForm');
+    contactForm.addEventListener('submit', async (event) => {
+        //need to prevent the default behavior, otherwise the page will be reloaded
+        event.preventDefault();
+        let name = document.getElementById('contactName');
+        let email = document.getElementById('contactEmail');
+        let phone = document.getElementById('contactPhone');
+        let msg = document.getElementById('contactMessage');
+        console.log('form submitted: ', name, email, phone);
+        const response = await fetch(`${baseApiUrl}/contacts/emails`, {
+            method: 'POST',
+            headers: jsonHeaders,
+            mode: 'cors',
+            cache: 'default',
+            body: JSON.stringify({email:email,name:name,phone:phone})
+        });
+        console.log(response);
+        const result = await response.json();
+        console.log('submit result:',result);
+    });
 }
 //end of on dom loaded function
 

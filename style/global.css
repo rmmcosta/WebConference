@@ -12,6 +12,10 @@ body header {
     min-height: 100vh;
 }
 
+#sponsors {
+    min-height: 100%;
+}
+
 header.masthead {
     color: white;
     text-align: center;
@@ -89,6 +93,10 @@ section h3.section-subheading {
     margin-top: 15px;
 }
 
+#renderSponsors {
+    width: 100%;
+}
+
 ul.social-buttons li a {
     font-size: 20px;
     line-height: 40px;
@@ -118,4 +126,10 @@ ul.social-buttons li a {
 
 .speakers-footing {
     margin-top: 6vh;
+}
+
+form input, form textarea {
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 5px;
 }
