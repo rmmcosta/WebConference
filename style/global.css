@@ -85,7 +85,7 @@ section h3.section-subheading {
     margin: 15px 0;
 }
 
-.speaker-name {
+.speaker-name, .sponsor-name {
     margin-top: 15px;
 }
 
@@ -108,7 +108,7 @@ ul.social-buttons li a {
     background-color: lightgray;
 }
 
-#speakers h4, #speakers img {
+#speakers h4, #speakers img, #sponsors h4, #sponsors img {
     cursor: pointer;
 }
 

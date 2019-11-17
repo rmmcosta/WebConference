@@ -77,6 +77,7 @@ window.onload = function () {
     }
     btnRegister.addEventListener("click", btnRegisterClick);
 
+    //get speakers
     (async () => {
         try {
             const speakers = await getSpeakers(`${baseApiUrl}/conferences/${conferenceNumber}/speakers`);
@@ -124,6 +125,56 @@ window.onload = function () {
             htmlSpeakers = htmlSpeakers + '</div>';
             console.log(htmlSpeakers);
             return htmlSpeakers;
+        }
+
+    })();
+
+    //get sponsors
+    (async () => {
+        try {
+            const sponsors = await getSponsors(`${baseApiUrl}/conferences/${conferenceNumber}/sponsors`);
+            console.log(JSON.stringify(sponsors)); // JSON-string from `response.json()` call= 
+            let renderSponsors = document.getElementById('renderSponsors');
+            renderSponsors.innerHTML = getSponsorsHtml(sponsors);
+        } catch (error) {
+            console.error(error);
+        }
+
+        async function getSponsors(url = '') {
+            // Default options are marked with *
+            const response = await fetch(url, {
+                method: 'GET', // *GET, POST, PUT, DELETE, etc.
+                mode: 'cors', // no-cors, *cors, same-origin
+                cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                credentials: 'same-origin', // include, *same-origin, omit
+                headers: {
+                    'Content-Type': 'application/json'
+                    // 'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                redirect: 'follow', // manual, *follow, error
+                referrer: 'no-referrer', // no-referrer, *client
+            });
+            return await response.json(); // parses JSON response into native JavaScript objects
+        }
+
+        function getSponsorsHtml(sponsors) {
+            let htmlSponsors = '<div class="row text-center">';
+            for (let sponsor in sponsors) {
+                let name = sponsors[sponsor].name;
+                let logo = sponsors[sponsor].logo;
+                let category = sponsors[sponsor].category;
+                let link = sponsors[sponsor].link;
+                htmlSponsors = htmlSponsors + '<div class="col-md-3 col-sm-3">';
+                htmlSponsors = htmlSponsors + `<a href="https://${link}" target="_blank">`;
+                htmlSponsors = htmlSponsors + '<img class="img-fluid d-block mx-auto" src=".'+logo+'" style="width:200px;height:80px;" alt="'+name+'"></img>';
+                htmlSponsors = htmlSponsors + `<h4 class="sponsor-name">${name}</h4>`;
+                htmlSponsors = htmlSponsors + '</a>';
+                htmlSponsors = htmlSponsors + `<p class="text-muted">${category}</p>`;
+                htmlSponsors = htmlSponsors + '</div>';
+            }
+            htmlSponsors = htmlSponsors + '</div>';
+            console.log(htmlSponsors);
+            return htmlSponsors;
         }
 
     })();
