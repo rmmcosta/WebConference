@@ -133,3 +133,8 @@ form input, form textarea {
     margin-bottom: 15px;
     padding: 5px;
 }
+
+.swal2-content span {
+    font-size: 1em;
+    width: 100%;
+}

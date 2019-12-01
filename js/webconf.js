@@ -178,21 +178,68 @@ window.onload = function () {
     contactForm.addEventListener('submit', async (event) => {
         //need to prevent the default behavior, otherwise the page will be reloaded
         event.preventDefault();
-        let name = document.getElementById('contactName');
-        let email = document.getElementById('contactEmail');
-        let phone = document.getElementById('contactPhone');
-        let msg = document.getElementById('contactMessage');
-        console.log('form submitted: ', name, email, phone);
+        let inputName = document.getElementById('contactName');
+        let inputEmail = document.getElementById('contactEmail');
+        let inputPhone = document.getElementById('contactPhone');
+        let inputMsg = document.getElementById('contactMessage');
+        let btnSendMessage = document.getElementById('btnSendMessage');
+        let btnSendMessageOrigInnerHtml = btnSendMessage.innerHTML;
+
+        buttonStartLoading(btnSendMessage, btnSendMessageOrigInnerHtml);
+
+        let inputedName = inputName.value;
+        let inputedEmail = inputEmail.value;
+        let inputedPhone = inputPhone.value;
+        let inputedMsg = inputMsg.value;
+
+        const bodyRequest = JSON.stringify({
+            email: inputedEmail,
+            name: inputedName,
+            phone: inputedPhone,
+            msg: inputedMsg
+        });
+        console.log('body request:', bodyRequest);
         const response = await fetch(`${baseApiUrl}/contacts/emails`, {
             method: 'POST',
             headers: jsonHeaders,
             mode: 'cors',
             cache: 'default',
-            body: JSON.stringify({email:email,name:name,phone:phone})
+            body: bodyRequest
         });
         console.log(response);
         const result = await response.json();
-        console.log('submit result:',result);
+        this.buttonStopLoading(btnSendMessage, btnSendMessageOrigInnerHtml);
+        console.log('submit result:', result);
+        if (result.success) {
+            // clear the form and go back to the top of the page
+            Swal.fire({
+                type: 'success',
+                title: 'Contact received',
+                text: result.message.eng,
+                showConfirmButton: false,
+                timer: 1500,
+                onClose: () => {
+                    contactForm.reset();
+                }
+            });
+        } else {
+            let listErrors = "Something went wrong!";
+            if (!!result.errors) {
+                listErrors = '';
+                result.errors.forEach(element => {
+                    listErrors += `<span>${element.param.toUpperCase()} - ${element.msg}: "${element.value}"</span>`
+                });
+            }
+            if (!!result.message) {
+                listErrors = result.message;
+            }
+            Swal.fire({
+                type: 'error',
+                title: 'Oops...',
+                html: listErrors,
+                confirmButtonText: 'Try again'
+            });
+        }
     });
 }
 //end of on dom loaded function
@@ -235,3 +282,13 @@ function showSpeakerPopup(elem) {
         animation: false
     })
 };
+
+function buttonStartLoading(btnElement, originalInnerHtml) {
+    btnElement.disabled = true;
+    btnElement.innerHTML = '<div class="fa fa-spin fa-spinner"></div> ' + originalInnerHtml;
+}
+
+function buttonStopLoading(btnElement, originalInnerHtml) {
+    btnElement.disabled = false;
+    btnElement.innerHTML = originalInnerHtml;
+}
