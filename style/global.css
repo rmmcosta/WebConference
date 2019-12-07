@@ -138,3 +138,30 @@ form input, form textarea {
     font-size: 1em;
     width: 100%;
 }
+
+#googlemap {
+    width: 100%;
+    height: 400px;
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+}
+
+footer {
+    padding: 25px 0;
+    text-align: center;
+}
+
+footer span.copyright {
+    font-family: 'Monteserrat', 'Helvetica Neue', Helvetica, sans-serif;
+    font-size: 90%;
+    line-height: 40px;
+}
+
+ul.social-buttons li a {
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons li a:hover {
+    background-color: #3677b1;
+}

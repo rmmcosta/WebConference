@@ -292,3 +292,23 @@ function buttonStopLoading(btnElement, originalInnerHtml) {
     btnElement.disabled = false;
     btnElement.innerHTML = originalInnerHtml;
 }
+
+//to use by the google maps
+// Initialize and add the map
+function initMap() {
+    // The location of guimaraes
+    let guima = { lat: 41.44443, lng: -8.29619 };//41.44443, -8.29619
+    // The map, centered at Uluru
+    let map = new google.maps.Map(
+        document.getElementById('googlemap'), { zoom: 12, center: guima });
+    // The marker, positioned at Uluru
+    let marker = new google.maps.Marker({ position: guima, map: map, title: "WebConference" });
+
+    let infoWindow = new google.maps.InfoWindow({
+        content: "This is my hometown."
+    });
+
+    marker.addListener('click',function(){
+        infoWindow.open(map, marker);
+    });
+}
