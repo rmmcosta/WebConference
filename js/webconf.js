@@ -9,12 +9,12 @@ jsonHeaders.append('Content-Type', 'application/json');
 
 //on dom loaded
 window.onload = function () {
-    console.log("DOM loaded");
+    //console.log("DOM loaded");
 
     //register participant
     const btnRegister = document.getElementById("btnRegister");
     btnRegisterClick = function () {
-        console.log("Register button clicked!")
+        //console.log("Register button clicked!")
         //open modal
         Swal.fire({
             title: 'WebConference',
@@ -29,10 +29,10 @@ window.onload = function () {
             preConfirm: () => {
                 //get name
                 let inname = $('#txtName').val();
-                console.log(inname);
+                //console.log(inname);
                 //get email
                 let inmail = $('#txtEmail').val();
-                console.log(inmail);
+                //console.log(inmail);
                 //register in the database
                 const postInit = {
                     method: 'POST',
@@ -41,19 +41,19 @@ window.onload = function () {
                     cache: 'default',
                     body: JSON.stringify({ name: inname })
                 };
-                console.log('do the fetch at:' + new Date().getTime());
+                //console.log('do the fetch at:' + new Date().getTime());
                 return fetch(`${baseApiUrl}/conferences/${conferenceNumber}/participants/${inmail}`, postInit)
                     .then(response => response.text())
                     .then(data => {
-                        console.log(data);
+                        //console.log(data);
                         if (!data) {
-                            console.log('response not ok');
+                            //console.log('response not ok');
                             throw new Error(response.statusText)
                         }
                         return data;
                     })
                     .catch(error => {
-                        console.log('error');
+                        //console.log('error');
                         Swal.showValidationMessage(
                             `Request failed: ${error}`
                         )
@@ -81,7 +81,7 @@ window.onload = function () {
     (async () => {
         try {
             const speakers = await getSpeakers(`${baseApiUrl}/conferences/${conferenceNumber}/speakers`);
-            console.log(JSON.stringify(speakers)); // JSON-string from `response.json()` call= 
+            //console.log(JSON.stringify(speakers)); // JSON-string from `response.json()` call= 
             let renderSpeakers = document.getElementById('renderSpeakers');
             renderSpeakers.innerHTML = getSpeakersHtml(speakers);
             await addSpeakerPhotos();
@@ -120,7 +120,7 @@ window.onload = function () {
                 htmlSpeakers = htmlSpeakers + '</div>';
             }
             htmlSpeakers = htmlSpeakers + '</div>';
-            console.log(htmlSpeakers);
+            //console.log(htmlSpeakers);
             return htmlSpeakers;
         }
 
@@ -130,7 +130,7 @@ window.onload = function () {
     (async () => {
         try {
             const sponsors = await getSponsors(`${baseApiUrl}/conferences/${conferenceNumber}/sponsors`);
-            console.log(JSON.stringify(sponsors)); // JSON-string from `response.json()` call= 
+            //console.log(JSON.stringify(sponsors)); // JSON-string from `response.json()` call= 
             let renderSponsors = document.getElementById('renderSponsors');
             renderSponsors.innerHTML = getSponsorsHtml(sponsors);
         } catch (error) {
@@ -167,7 +167,7 @@ window.onload = function () {
                 htmlSponsors = htmlSponsors + '</div>';
             }
             htmlSponsors = htmlSponsors + '</div>';
-            console.log(htmlSponsors);
+            //console.log(htmlSponsors);
             return htmlSponsors;
         }
 
@@ -198,7 +198,7 @@ window.onload = function () {
             phone: inputedPhone,
             msg: inputedMsg
         });
-        console.log('body request:', bodyRequest);
+        //console.log('body request:', bodyRequest);
         const response = await fetch(`${baseApiUrl}/contacts/emails`, {
             method: 'POST',
             headers: jsonHeaders,
@@ -206,10 +206,10 @@ window.onload = function () {
             cache: 'default',
             body: bodyRequest
         });
-        console.log(response);
+        //console.log(response);
         const result = await response.json();
         this.buttonStopLoading(btnSendMessage, btnSendMessageOrigInnerHtml);
-        console.log('submit result:', result);
+        //console.log('submit result:', result);
         if (result.success) {
             // clear the form and go back to the top of the page
             Swal.fire({
@@ -241,13 +241,53 @@ window.onload = function () {
             });
         }
     });
+
+    //login to private area
+    const linkPrivateArea = document.getElementById('linkPrivateArea');
+    linkPrivateArea.addEventListener('click', () => {
+        Swal.fire({
+            title: 'WebConference Backoffice',
+            html:
+                '<input id="loginEmail" placeholder="email" type="email" class="swal2-input">' +
+                '<input id="loginPassword" placeholder="password" type="password" class="swal2-input">',
+            focusConfirm: false,
+            showCancelButton: true,
+            confirmButtonText: 'Enter',
+            showLoaderOnConfirm: true,
+            preConfirm: () => {
+                let loginEmail = document.getElementById('loginEmail').value;
+                let loginPwd = document.getElementById('loginPassword').value;
+                console.log(loginEmail,loginPwd);
+                /*return fetch(`//api.github.com/users/${login}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(response.statusText)
+                        }
+                        return response.json()
+                    })
+                    .catch(error => {
+                        Swal.showValidationMessage(
+                            `Request failed: ${error}`
+                        )
+                    })*/
+            },
+            allowOutsideClick: () => !Swal.isLoading()
+        }).then((result) => {
+            if (result.value) {
+                Swal.fire({
+                    title: `${result.value.login}'s avatar`,
+                    imageUrl: result.value.avatar_url
+                })
+            }
+        });
+    });
 }
 //end of on dom loaded function
 
 async function addSpeakerPhotos() {
-    console.log('add speaker photos');
+    //console.log('add speaker photos');
     const imgs = document.querySelectorAll("#renderSpeakers .row img");
-    console.log(imgs);
+    //console.log(imgs);
     for (img in imgs) {
         await getRandomPhoto(imgs[img]);
     };
@@ -266,7 +306,7 @@ async function getRandomPhoto(img) {
 }
 
 function showSpeakerPopup(elem) {
-    console.log(elem.parentElement);
+    //console.log(elem.parentElement);
     let div = elem.parentElement;
     let name = div.getElementsByTagName('h4')[0].innerText;
     let bio = div.getElementsByTagName('p')[0].innerText;
@@ -308,7 +348,7 @@ function initMap() {
         content: "This is my hometown."
     });
 
-    marker.addListener('click',function(){
+    marker.addListener('click', function () {
         infoWindow.open(map, marker);
     });
 }
