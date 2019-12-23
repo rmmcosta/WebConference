@@ -257,8 +257,18 @@ window.onload = function () {
             preConfirm: () => {
                 let loginEmail = document.getElementById('loginEmail').value;
                 let loginPwd = document.getElementById('loginPassword').value;
-                console.log(loginEmail,loginPwd);
-                /*return fetch(`//api.github.com/users/${login}`)
+                console.log(loginEmail, loginPwd);
+                const bodyRequest = JSON.stringify({
+                    email: loginEmail,
+                    password: loginPwd
+                });
+                return fetch(`${baseApiUrl}/signin`, {
+                    method: 'POST',
+                    headers: jsonHeaders,
+                    mode: 'cors',
+                    cache: 'default',
+                    body: bodyRequest
+                })
                     .then(response => {
                         if (!response.ok) {
                             throw new Error(response.statusText)
@@ -269,16 +279,11 @@ window.onload = function () {
                         Swal.showValidationMessage(
                             `Request failed: ${error}`
                         )
-                    })*/
+                    })
             },
             allowOutsideClick: () => !Swal.isLoading()
         }).then((result) => {
-            if (result.value) {
-                Swal.fire({
-                    title: `${result.value.login}'s avatar`,
-                    imageUrl: result.value.avatar_url
-                })
-            }
+            console.log(result);
         });
     });
 }
