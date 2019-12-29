@@ -258,22 +258,21 @@ window.onload = function () {
                 let loginEmail = document.getElementById('loginEmail').value;
                 let loginPwd = document.getElementById('loginPassword').value;
                 console.log(loginEmail, loginPwd);
-                const bodyRequest = JSON.stringify({
-                    email: loginEmail,
-                    password: loginPwd
-                });
+                console.log(baseApiUrl);
                 return fetch(`${baseApiUrl}/signin`, {
-                    method: 'POST',
-                    headers: jsonHeaders,
-                    mode: 'cors',
-                    cache: 'default',
-                    body: bodyRequest
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    method: "POST",
+                    body: `email=${loginEmail}&password=${loginPwd}`
                 })
                     .then(response => {
+                        console.log(response);
                         if (!response.ok) {
+                            console.log('auth not ok');
                             throw new Error(response.statusText)
                         }
-                        return response.json()
+                        return true;
                     })
                     .catch(error => {
                         Swal.showValidationMessage(
@@ -283,7 +282,13 @@ window.onload = function () {
             },
             allowOutsideClick: () => !Swal.isLoading()
         }).then((result) => {
-            console.log(result);
+            console.log('auth result:',result);
+            if (result) {
+                Swal.fire({ title: "Authenticated with success!" })
+                window.location.replace("admin/html/participants.html")
+            } else {
+                Swal.fire({ title: `An error has ocurred!` })
+            }
         });
     });
 }
