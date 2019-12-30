@@ -1,6 +1,6 @@
 const proxyurl = "https://cors-anywhere.herokuapp.com";
 const url = "https://rcwebconference.herokuapp.com"; // site that doesn’t send Access-Control-*
-const baseApiUrl = proxyurl + '/' + url;
+export const baseApiUrl = proxyurl + '/' + url;
 const conferenceNumber = 1;
 
 let jsonHeaders = new Headers();
@@ -284,7 +284,6 @@ window.onload = function () {
         }).then((result) => {
             console.log('auth result:',result);
             if (result) {
-                Swal.fire({ title: "Authenticated with success!" })
                 window.location.replace("admin/html/participants.html")
             } else {
                 Swal.fire({ title: `An error has ocurred!` })
