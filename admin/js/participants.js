@@ -6,7 +6,7 @@ const baseApiUrl = proxyurl + '/' + url;
 $(()=>{
     const divParticipants = $('#divParticipants');
     // '/conferences/:idconf/participants' 0 means all
-    fetch(`${baseApiUrl}/0/participants`)
+    fetch(`${baseApiUrl}/conferences/0/participants`)
     .then(participants=>{
         console.log(participants);
     })
