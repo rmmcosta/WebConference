@@ -8,7 +8,7 @@ $(() => {
     addActions();
 });
 
-async const renderParticipants = () => {
+async function renderParticipants() {
     const divParticipants = $('#divParticipants');
     // '/conferences/:idconf/participants' 0 means all
     fetch(`${baseApiUrl}/conferences/0/participants`)
