@@ -8,7 +8,7 @@ $(() => {
     addActions();
 });
 
-const renderSponsors = async () => {
+async const renderSponsors = () => {
     const divSponsors = $('#divSponsors');
     // '/conferences/:idconf/participants' 0 means all
     fetch(`${baseApiUrl}/conferences/0/sponsors`)
