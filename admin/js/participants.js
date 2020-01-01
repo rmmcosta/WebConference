@@ -32,8 +32,9 @@ $(() => {
             table += '</tbody></table>';
             divParticipants.html(table);
 
-            $('.deleteIcon').click(() => {
-                let id = this.data('data-id');
+            $('.deleteIcon').click((event) => {
+                console.log(event);
+                let id = $(event.target).data('data-id');
                 Swal.fire({
                     title: 'Are you sure?',
                     text: "You won't be able to revert this!",
