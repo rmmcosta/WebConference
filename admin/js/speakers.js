@@ -16,7 +16,7 @@ $(() => {
             <th scope="col">#</th>
             <th scope="col">Name</th>
             <th scope="col">Filliation</th>
-            <th scope="col">Bio/th>
+            <th scope="col">Bio</th>
           </tr>
         </thead>
         <tbody>`;
