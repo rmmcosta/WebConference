@@ -81,7 +81,7 @@ const addActions = () => {
                                 'success'
                             )
                         }
-                        await renderParticipants();
+                        renderParticipants();
                     })
                     .catch(error => {
                         console.error(error);

@@ -81,7 +81,7 @@ const addActions = () => {
                                 'success'
                             )
                         }
-                        await renderSpeakers();
+                        renderSpeakers();
                     })
                     .catch(error => {
                         console.error(error);
