@@ -4,6 +4,11 @@ const baseApiUrl = proxyurl + '/' + url;
 
 //on document ready
 $(() => {
+    renderParticipants();
+    addActions();
+});
+
+const renderParticipants = async () => {
     const divParticipants = $('#divParticipants');
     // '/conferences/:idconf/participants' 0 means all
     fetch(`${baseApiUrl}/conferences/0/participants`)
@@ -32,50 +37,56 @@ $(() => {
             table += '</tbody></table>';
             divParticipants.html(table);
 
-            $('.deleteIcon').click((event) => {
-                console.log(event);
-                let id = $(event.target).data('id');
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    if (result.value) {
-                        //fetch delete
-                        let deleteOptions = {
-                            method: 'DELETE', // *GET, POST, PUT, DELETE, etc.
-                            mode: 'cors', // no-cors, *cors, same-origin
-                            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-                            credentials: 'same-origin', // include, *same-origin, omit
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            redirect: 'follow', // manual, *follow, error
-                            referrerPolicy: 'no-referrer', // no-referrer, *client
-                        };
-                        ///conferences/:idconf/participants/:idparticipant
-                        fetch(`${baseApiUrl}/conferences/1/participants/${id}`, deleteOptions)
-                            .then((response) => {
-                                if (response.ok) {
-                                    Swal.fire(
-                                        'Deleted!',
-                                        'The record has been deleted.',
-                                        'success'
-                                    )
-                                }
-                            })
-                            .catch(error => {
-                                console.error(error);
-                            });
-                    }
-                })
-            });
+
         })
         .catch(error => {
             console.error(error);
         });
-});
+}
+
+const addActions = () => {
+    $('.deleteIcon').click((event) => {
+        console.log(event);
+        let id = $(event.target).data('id');
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.value) {
+                //fetch delete
+                let deleteOptions = {
+                    method: 'DELETE', // *GET, POST, PUT, DELETE, etc.
+                    mode: 'cors', // no-cors, *cors, same-origin
+                    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                    credentials: 'same-origin', // include, *same-origin, omit
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    redirect: 'follow', // manual, *follow, error
+                    referrerPolicy: 'no-referrer', // no-referrer, *client
+                };
+                ///conferences/:idconf/participants/:idparticipant
+                fetch(`${baseApiUrl}/conferences/1/participants/${id}`, deleteOptions)
+                    .then((response) => {
+                        console.log(response);
+                        if (response.ok) {
+                            Swal.fire(
+                                'Deleted!',
+                                'The record has been deleted.',
+                                'success'
+                            )
+                        }
+                        await renderParticipants();
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+            }
+        })
+    });
+}
