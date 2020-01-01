@@ -4,7 +4,7 @@ const baseApiUrl = proxyurl + '/' + url;
 
 //on document ready
 $(() => {
-    renderSponsors();
+    await renderSponsors();
     addActions();
 });
 

@@ -4,7 +4,7 @@ const baseApiUrl = proxyurl + '/' + url;
 
 //on document ready
 $(() => {
-    renderSpeakers();
+    await renderSpeakers();
     addActions();
 });
 
