@@ -38,7 +38,7 @@ $(() => {
 
             $('.deleteIcon').click((event) => {
                 console.log(event);
-                let id = $(event.target).data('data-id');
+                let id = $(event.target).data('id');
                 Swal.fire({
                     title: 'Are you sure?',
                     text: "You won't be able to revert this!",
