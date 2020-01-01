@@ -27,7 +27,7 @@ $(() => {
             <td>${element.name}</td>
             <td>${element.logo}</td>
             <td>${element.category}</td>
-            <td>${element.link}</td>
+            <td><a href="${element.link}">${element.link}</a></td>
           </tr>`;
             });
 
