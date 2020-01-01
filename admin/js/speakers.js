@@ -17,6 +17,7 @@ $(() => {
             <th scope="col">Name</th>
             <th scope="col">Filliation</th>
             <th scope="col">Bio</th>
+            <th scope="col">Actions</th>
           </tr>
         </thead>
         <tbody>`;
@@ -26,11 +27,54 @@ $(() => {
             <td>${element.name}</td>
             <td>${element.filliation}</td>
             <td>${element.bio}</td>
+            <td><i class="deleteIcon far fa-trash-alt" data-id="${element.id}"></i></td>
           </tr>`;
             });
 
             table += '</tbody></table>';
             divSpeakers.html(table);
+
+            $('.deleteIcon').click(() => {
+                let id = this.data('data-id');
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.value) {
+                        //fetch delete
+                        let deleteOptions = {
+                            method: 'DELETE', // *GET, POST, PUT, DELETE, etc.
+                            mode: 'cors', // no-cors, *cors, same-origin
+                            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                            credentials: 'same-origin', // include, *same-origin, omit
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            redirect: 'follow', // manual, *follow, error
+                            referrerPolicy: 'no-referrer', // no-referrer, *client
+                        };
+                        ///conferences/:idconf/speakers/:idspeaker
+                        fetch(`${baseApiUrl}/conferences/1/speakers/${id}`, deleteOptions)
+                            .then((response) => {
+                                if (response.ok) {
+                                    Swal.fire(
+                                        'Deleted!',
+                                        'The record has been deleted.',
+                                        'success'
+                                    )
+                                }
+                            })
+                            .catch(error => {
+                                console.error(error);
+                            });
+                    }
+                })
+            });
         })
         .catch(error => {
             console.error(error);
