@@ -9,7 +9,6 @@ $(() => {
 
 async function init() {
     await renderParticipants();
-    addActions();
 }
 
 async function renderParticipants() {
@@ -39,6 +38,8 @@ async function renderParticipants() {
 
     table += '</tbody></table>';
     divParticipants.html(table);
+    
+    addActions();
 }
 
 async function addActions() {

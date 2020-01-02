@@ -9,7 +9,6 @@ $(() => {
 
 async function init() {
     await renderSponsors();
-    addActions();
 }
 
 async function renderSponsors() {
@@ -43,6 +42,8 @@ async function renderSponsors() {
 
     table += '</tbody></table>';
     divSponsors.html(table);
+
+    addActions();
 }
 
 const addActions = () => {

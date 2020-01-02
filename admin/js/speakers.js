@@ -9,7 +9,6 @@ $(() => {
 
 async function init() {
     await renderSpeakers();
-    addActions();
 }
 
 async function renderSpeakers() {
@@ -41,6 +40,8 @@ async function renderSpeakers() {
 
     table += '</tbody></table>';
     divSpeakers.html(table);
+    
+    addActions();
 }
 
 async function addActions() {
