@@ -29,7 +29,9 @@ async function logout() {
         referrerPolicy: 'no-referrer', // no-referrer, *client
     };
     ///conferences/:idconf/participants/:idparticipant
-    await fetch(`${baseApiUrl}/logout`, deleteOptions);
+    console.log(`${baseApiUrl}/logout`);
+    let response = await fetch(`${baseApiUrl}/logout`, deleteOptions);
+    console.log(response);
 }
 
 async function renderSponsors() {
