@@ -89,7 +89,7 @@ const addActions = () => {
                                 'success'
                             )
                         }
-                        await renderSponsors();
+                        renderSponsors();
                     })
                     .catch(error => {
                         console.error(error);
