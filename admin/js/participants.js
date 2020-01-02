@@ -7,8 +7,10 @@ $(() => {
     init();
     const btnLogout = $('#btnLogout');
     btnLogout.click(()=>{
+        console.log('click logout!');
         logout();
-        window.location.href = "https://rmmcosta.github.io/WebConference/";
+        console.log('Logged out!');
+        window.location.href = "https://rmmcosta.github.io/WebConference/";;
     });
 });
 

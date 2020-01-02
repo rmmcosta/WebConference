@@ -7,7 +7,9 @@ $(() => {
     init();
     const btnLogout = $('#btnLogout');
     btnLogout.click(()=>{
+        console.log('click logout!');
         logout();
+        console.log('Logged out!');
         window.location.href = "https://rmmcosta.github.io/WebConference/";
     });
 });
