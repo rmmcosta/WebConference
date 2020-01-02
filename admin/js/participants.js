@@ -15,11 +15,10 @@ async function init() {
 async function renderParticipants() {
     const divParticipants = $('#divParticipants');
     // '/conferences/:idconf/participants' 0 means all
-    fetch(`${baseApiUrl}/conferences/0/participants`)
-        .then((response) => response.json())
-        .then((participants) => {
-            console.log(participants);
-            let table = `<table class="table">
+    let response = await fetch(`${baseApiUrl}/conferences/0/participants`);
+    let participants = await response.json();
+    console.log(participants);
+    let table = `<table class="table">
         <thead class="thead-dark">
           <tr>
             <th scope="col">#</th>
@@ -29,23 +28,17 @@ async function renderParticipants() {
           </tr>
         </thead>
         <tbody>`;
-            participants.forEach(element => {
-                table += `<tr>
+    participants.forEach(element => {
+        table += `<tr>
             <th scope="row">${element.id}</th>
             <td>${element.name}</td>
             <td>${element.email}</td>
             <td><i class="deleteIcon far fa-trash-alt" data-id="${element.id}"></i></td>
           </tr>`;
-            });
+    });
 
-            table += '</tbody></table>';
-            divParticipants.html(table);
-
-
-        })
-        .catch(error => {
-            console.error(error);
-        });
+    table += '</tbody></table>';
+    divParticipants.html(table);
 }
 
 async function addActions() {

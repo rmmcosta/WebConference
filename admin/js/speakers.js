@@ -15,11 +15,10 @@ async function init() {
 async function renderSpeakers() {
     const divSpeakers = $('#divSpeakers');
     // '/conferences/:idconf/participants' 0 means all
-    fetch(`${baseApiUrl}/conferences/0/speakers`)
-        .then((response) => response.json())
-        .then(speakers => {
-            console.log(speakers);
-            let table = `<table class="table">
+    let response = await fetch(`${baseApiUrl}/conferences/0/speakers`);
+    let speakers = await response.json();
+    console.log(speakers);
+    let table = `<table class="table">
         <thead class="thead-dark">
           <tr>
             <th scope="col">#</th>
@@ -30,22 +29,18 @@ async function renderSpeakers() {
           </tr>
         </thead>
         <tbody>`;
-            speakers.forEach(element => {
-                table += `<tr>
+    speakers.forEach(element => {
+        table += `<tr>
             <th scope="row">${element.id}</th>
             <td>${element.name}</td>
             <td>${element.filliation}</td>
             <td>${element.bio}</td>
             <td><i class="deleteIcon far fa-trash-alt" data-id="${element.id}"></i></td>
           </tr>`;
-            });
+    });
 
-            table += '</tbody></table>';
-            divSpeakers.html(table);
-        })
-        .catch(error => {
-            console.error(error);
-        });
+    table += '</tbody></table>';
+    divSpeakers.html(table);
 }
 
 async function addActions() {

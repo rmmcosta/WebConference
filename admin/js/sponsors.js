@@ -15,11 +15,10 @@ async function init() {
 async function renderSponsors() {
     const divSponsors = $('#divSponsors');
     // '/conferences/:idconf/participants' 0 means all
-    fetch(`${baseApiUrl}/conferences/0/sponsors`)
-        .then((response) => response.json())
-        .then(sponsors => {
-            console.log(sponsors);
-            let table = `<table class="table">
+    let response = await fetch(`${baseApiUrl}/conferences/0/sponsors`);
+    let sponsors = await response.json();
+    console.log(sponsors);
+    let table = `<table class="table">
         <thead class="thead-dark">
           <tr>
             <th scope="col">#</th>
@@ -31,8 +30,8 @@ async function renderSponsors() {
           </tr>
         </thead>
         <tbody>`;
-            sponsors.forEach(element => {
-                table += `<tr>
+    sponsors.forEach(element => {
+        table += `<tr>
             <th scope="row">${element.id}</th>
             <td>${element.name}</td>
             <td>${element.logo}</td>
@@ -40,16 +39,10 @@ async function renderSponsors() {
             <td><a href="${element.link}">${element.link}</a></td>
             <td><i class="deleteIcon far fa-trash-alt" data-id="${element.id}"></i></td>
           </tr>`;
-            });
+    });
 
-            table += '</tbody></table>';
-            divSponsors.html(table);
-
-
-        })
-        .catch(error => {
-            console.error(error);
-        });
+    table += '</tbody></table>';
+    divSponsors.html(table);
 }
 
 const addActions = () => {
