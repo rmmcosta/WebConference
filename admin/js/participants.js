@@ -4,9 +4,13 @@ const baseApiUrl = proxyurl + '/' + url;
 
 //on document ready
 $(() => {
+    init();
+});
+
+async function init() {
     await renderParticipants();
     addActions();
-});
+}
 
 async function renderParticipants() {
     const divParticipants = $('#divParticipants');
@@ -44,7 +48,7 @@ async function renderParticipants() {
         });
 }
 
-const addActions = () => {
+async function addActions() {
     $('.deleteIcon').click((event) => {
         console.log(event);
         let id = $(event.target).data('id');
@@ -81,7 +85,7 @@ const addActions = () => {
                                 'success'
                             )
                         }
-                        renderParticipants();
+                        await renderParticipants();
                     })
                     .catch(error => {
                         console.error(error);

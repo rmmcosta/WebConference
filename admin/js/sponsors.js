@@ -4,9 +4,13 @@ const baseApiUrl = proxyurl + '/' + url;
 
 //on document ready
 $(() => {
+    init();
+});
+
+async function init() {
     await renderSponsors();
     addActions();
-});
+}
 
 async function renderSponsors() {
     const divSponsors = $('#divSponsors');
@@ -85,7 +89,7 @@ const addActions = () => {
                                 'success'
                             )
                         }
-                        renderSponsors();
+                        await renderSponsors();
                     })
                     .catch(error => {
                         console.error(error);
