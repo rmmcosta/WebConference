@@ -5,10 +5,31 @@ const baseApiUrl = proxyurl + '/' + url;
 //on document ready
 $(() => {
     init();
+    const btnLogout = $('#btnLogout');
+    btnLogout.click(()=>{
+        logout();
+        window.location.href = "https://rmmcosta.github.io/WebConference/";
+    });
 });
 
 async function init() {
     await renderSponsors();
+}
+
+async function logout() {
+    let deleteOptions = {
+        method: 'GET', // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, *same-origin, omit
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        redirect: 'follow', // manual, *follow, error
+        referrerPolicy: 'no-referrer', // no-referrer, *client
+    };
+    ///conferences/:idconf/participants/:idparticipant
+    await fetch(`${baseApiUrl}/logout`, deleteOptions);
 }
 
 async function renderSponsors() {
