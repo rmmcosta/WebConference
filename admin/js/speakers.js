@@ -6,12 +6,49 @@ const baseApiUrl = proxyurl + '/' + url;
 $(() => {
     init();
     const btnLogout = $('#btnLogout');
-    btnLogout.click(()=>{
+    btnLogout.click(() => {
         console.log('click logout!');
         logout();
         console.log('Logged out!');
     });
+    const btnSaveSpeaker = $('#btnSaveSpeaker');
+    btnSaveSpeaker.click(() => {
+        console.log('save speaker clicked');
+        addSpeaker();
+    });
 });
+
+function addSpeaker() {
+    // '/conferences/:idconf/speakers/:idspeaker'
+    let data = {
+        id: $('#speakerId').val(),
+        name: $('#speakerName').val(),
+        filliation: $('#speakerFilliation').val(),
+        bio: $('#speakerBio').val(),
+        link: $('#speakerLink').val()
+    };
+    let jsonHeaders = new Headers();
+    jsonHeaders.append('Content-Type', 'application/json');
+    let postOptions = {
+        method: 'POST',
+        headers: jsonHeaders,
+        mode: 'cors',
+        cache: 'default',
+        body: JSON.stringify(data)
+    };
+    console.log(postOptions);
+    fetch(`${baseApiUrl}/conferences/1/speakers/${data.id}`, postOptions)
+        .then(response => {
+            console.log(response);
+            if (response.ok) {
+                renderSpeakers();
+                $('#btnCloseSpeakerModal').trigger("click");
+            }
+        })
+        .catch(error => {
+            console.log(error);
+        });
+}
 
 async function init() {
     await renderSpeakers();
@@ -27,7 +64,7 @@ async function logout() {
         .then(response => {
             console.log(response);
             if (response.ok) {
-                //window.location.href = "https://rmmcosta.github.io/WebConference/";
+                window.location.href = "https://rmmcosta.github.io/WebConference/";
             }
         });
 }
@@ -61,7 +98,7 @@ async function renderSpeakers() {
 
     table += '</tbody></table>';
     divSpeakers.html(table);
-    
+
     addActions();
 }
 

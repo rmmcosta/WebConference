@@ -18,10 +18,6 @@
 
         <a class="navbar-brand mr-1" href="#">WebConference Admin</a>
 
-        <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
-            <i class="fas fa-bars"></i>
-        </button>
-
         <!-- Navbar Search -->
         <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
             <div class="input-group">
@@ -110,7 +106,14 @@
             <div class="container-fluid">
                 <div class="jumbotron">
                     <h1 class="display-3">Speakers</h1>
-                    <p class="lead">Manage WebConference presenters</p>
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <p class="lead">Manage WebConference presenters</p>
+                        </div>
+                        <div class="col-lg-4 text-right">
+                            <a href="#" data-toggle="modal" data-target="#speakerModal">new Speaker</a>
+                        </div>
+                    </div>
                     <hr class="my-2">
                     <div id="divSpeakers" class="container">
                         <!--Speakers table-->
@@ -160,6 +163,50 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- speaker Modal-->
+    <div class="modal fade" id="speakerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">New Speaker</h5>
+                    <button id="btnCloseSpeakerModal" class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <input type="hidden" name="speakerId" value="0" id="speakerId">
+                        <div class="form-group">
+                            <label for="speakerName">Name</label>
+                            <input type="text" class="form-control" id="speakerName" name="speakerName"
+                                placeholder="Enter name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="speakerFilliation">Filliation</label>
+                            <input type="text" class="form-control" id="speakerFilliation" name="speakerFilliation"
+                                placeholder="Enter filliation">
+                        </div>
+                        <div class="form-group">
+                            <label for="speakerBio">Bio</label>
+                            <input type="text" class="form-control" id="speakerBio" name="speakerBio"
+                                placeholder="Enter bio">
+                        </div>
+                        <div class="form-group">
+                            <label for="speakerLink">Link</label>
+                            <input type="text" class="form-control" id="speakerLink" name="speakerLink"
+                                placeholder="Enter url link">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-primary" id="btnSaveSpeaker" name="btnSaveSpeaker" type="submit">Save</div>
+            </div>
+        </div>
+    </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
