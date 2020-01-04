@@ -158,7 +158,7 @@ window.onload = function () {
                 let logo = sponsors[sponsor].logo;
                 let category = sponsors[sponsor].category;
                 let link = sponsors[sponsor].link;
-                htmlSponsors = htmlSponsors + '<div class="col-md-3 col-sm-3">';
+                htmlSponsors = htmlSponsors + '<div class="col-md col-sm">';
                 htmlSponsors = htmlSponsors + `<a href="https://${link}" target="_blank">`;
                 htmlSponsors = htmlSponsors + '<img class="img-fluid d-block mx-auto" src=".' + logo + '" style="width:200px;height:80px;" alt="' + name + '"></img>';
                 htmlSponsors = htmlSponsors + `<h4 class="sponsor-name">${name}</h4>`;
