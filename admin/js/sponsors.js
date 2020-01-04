@@ -163,7 +163,7 @@ const addActions = () => {
                 $('#sponsorName').val(response[0].name);
                 $('#sponsorLogo').val(response[0].logo);
                 $('#sponsorCategory').val(response[0].category);
-                $('#speakerLink').val(response[0].link);
+                $('#sponsorLink').val(response[0].link);
                 let btnNewSponsor = $('#newSponsor');
                 btnNewSponsor.trigger('click');
             })
