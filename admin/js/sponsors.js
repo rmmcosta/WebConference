@@ -27,7 +27,7 @@ async function logout() {
         .then(response => {
             console.log(response);
             if (response.ok) {
-                window.location.href = "https://rmmcosta.github.io/WebConference/";
+                //window.location.href = "https://rmmcosta.github.io/WebConference/";
             }
         });
 }

@@ -5,7 +5,7 @@ const baseApiUrl = proxyurl + '/' + url;
 //on document ready
 $(() => {
     console.log('document ready');
-    //init();
+    init();
     const btnLogout = $('#btnLogout');
     btnLogout.click(() => {
         console.log('click logout!');
@@ -28,7 +28,7 @@ async function logout() {
         .then(response => {
             console.log(response);
             if (response.ok) {
-                window.location.href = "https://rmmcosta.github.io/WebConference/";
+                //window.location.href = "https://rmmcosta.github.io/WebConference/";
             }
         });
 }
