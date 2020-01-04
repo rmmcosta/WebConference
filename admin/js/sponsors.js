@@ -6,11 +6,10 @@ const baseApiUrl = proxyurl + '/' + url;
 $(() => {
     init();
     const btnLogout = $('#btnLogout');
-    btnLogout.click(()=>{
+    btnLogout.click(() => {
         console.log('click logout!');
         logout();
         console.log('Logged out!');
-        window.location.href = "https://rmmcosta.github.io/WebConference/";
     });
 });
 
@@ -19,21 +18,18 @@ async function init() {
 }
 
 async function logout() {
-    let deleteOptions = {
-        method: 'GET', // *GET, POST, PUT, DELETE, etc.
-        mode: 'cors', // no-cors, *cors, same-origin
-        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: 'same-origin', // include, *same-origin, omit
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        redirect: 'follow', // manual, *follow, error
-        referrerPolicy: 'no-referrer', // no-referrer, *client
+    let getOptions = {
+        method: 'GET'
     };
     ///conferences/:idconf/participants/:idparticipant
     console.log(`${baseApiUrl}/logout`);
-    let response = await fetch(`${baseApiUrl}/logout`, deleteOptions);
-    console.log(response);
+    fetch(`${baseApiUrl}/logout`, getOptions)
+        .then(response => {
+            console.log(response);
+            if (response.ok) {
+                window.location.href = "https://rmmcosta.github.io/WebConference/";
+            }
+        });
 }
 
 async function renderSponsors() {
