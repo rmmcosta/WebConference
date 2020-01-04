@@ -106,7 +106,14 @@
             <div class="container-fluid">
                 <div class="jumbotron">
                     <h1 class="display-3">Sponsors</h1>
-                    <p class="lead">Manage WebConference contributors</p>
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <p class="lead">Manage WebConference contributors</p>
+                        </div>
+                        <div class="col-lg-4 text-right">
+                            <a href="#" data-toggle="modal" data-target="#sponsorModal" id="newSponsor">new Sponsor</a>
+                        </div>
+                    </div>
                     <hr class="my-2">
                     <div id="divSponsors" class="container">
                         <!--Sponsors table-->
@@ -154,6 +161,50 @@
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                     <div class="btn btn-primary" id="btnLogout">Logout</div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- sponsor Modal-->
+    <div class="modal fade" id="sponsorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">New Sponsor</h5>
+                    <button id="btnCloseSponsorModal" class="close" type="button" data-dismiss="modal"
+                        aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <input type="hidden" name="sponsorId" value="0" id="sponsorId">
+                        <div class="form-group">
+                            <label for="sponsorName">Name</label>
+                            <input type="text" class="form-control" id="sponsorName" name="sponsorName"
+                                placeholder="Enter name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="sponsorLogo">Logo</label>
+                            <input type="text" class="form-control" id="sponsorLogo" name="sponsorLogo"
+                                placeholder="Enter logo">
+                        </div>
+                        <div class="form-group">
+                            <label for="sponsorCategory">Category</label>
+                            <input type="text" class="form-control" id="sponsorCategory" name="sponsorCategory"
+                                placeholder="Enter category">
+                        </div>
+                        <div class="form-group">
+                            <label for="sponsorLink">Link</label>
+                            <input type="text" class="form-control" id="sponsorLink" name="sponsorLink"
+                                placeholder="Enter url link">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-primary" id="btnSaveSponsor" name="btnSaveSponsor" type="submit">Save</div>
             </div>
         </div>
     </div>

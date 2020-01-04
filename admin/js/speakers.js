@@ -43,6 +43,7 @@ function addSpeaker() {
             if (response.ok) {
                 renderSpeakers();
                 $('#btnCloseSpeakerModal').trigger("click");
+                $("form")[1].reset();
             }
         })
         .catch(error => {
@@ -89,7 +90,7 @@ async function renderSpeakers() {
     speakers.forEach(element => {
         table += `<tr>
             <th scope="row">${element.id}</th>
-            <td>${element.name}</td>
+            <td><a href="#" class="speakerEdit" data-id="${element.id}">${element.name}</a></td>
             <td>${element.filliation}</td>
             <td>${element.bio}</td>
             <td><i class="deleteIcon far fa-trash-alt" data-id="${element.id}"></i></td>
@@ -146,5 +147,26 @@ async function addActions() {
                     });
             }
         })
+    });
+    //  edit option
+    $('.speakerEdit').click(event => {
+        console.log(event);
+        let id = $(event.target).data('id');
+        fetch(`${baseApiUrl}/conferences/1/speakers/${id}`, { method: 'GET' })
+            .then(response => response.json())
+            .then(response => {
+                console.log(response);
+                console.log(response[0]);
+                $('#speakerId').val(response[0].id);
+                $('#speakerName').val(response[0].name);
+                $('#speakerFilliation').val(response[0].filliation);
+                $('#speakerBio').val(response[0].bio);
+                $('#speakerLink').val(response[0].link);
+                let btnNewSpeaker = $('#newSpeaker');
+                btnNewSpeaker.trigger('click');
+            })
+            .catch(error => {
+                console.log(error);
+            });
     });
 }

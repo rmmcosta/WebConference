@@ -11,7 +11,45 @@ $(() => {
         logout();
         console.log('Logged out!');
     });
+    const btnSaveSponsor = $('#btnSaveSponsor');
+    btnSaveSponsor.click(() => {
+        console.log('save sponsor clicked');
+        addSponsor();
+    });
 });
+
+function addSponsor() {
+    // '/conferences/:idconf/sponsors/:idsponsor'
+    let data = {
+        id: $('#sponsorId').val(),
+        name: $('#sponsorName').val(),
+        logo: $('#sponsorLogo').val(),
+        category: $('#sponsorCategory').val(),
+        link: $('#sponsorLink').val()
+    };
+    let jsonHeaders = new Headers();
+    jsonHeaders.append('Content-Type', 'application/json');
+    let postOptions = {
+        method: 'POST',
+        headers: jsonHeaders,
+        mode: 'cors',
+        cache: 'default',
+        body: JSON.stringify(data)
+    };
+    console.log(postOptions);
+    fetch(`${baseApiUrl}/conferences/1/sponsors/${data.id}`, postOptions)
+        .then(response => {
+            console.log(response);
+            if (response.ok) {
+                renderSponsors();
+                $('#btnCloseSponsorModal').trigger("click");
+                $("form")[1].reset();
+            }
+        })
+        .catch(error => {
+            console.log(error);
+        });
+}
 
 async function init() {
     await renderSponsors();
@@ -53,7 +91,7 @@ async function renderSponsors() {
     sponsors.forEach(element => {
         table += `<tr>
             <th scope="row">${element.id}</th>
-            <td>${element.name}</td>
+            <td><a href="#" class="sponsorEdit" data-id="${element.id}">${element.name}</a></td>
             <td>${element.logo}</td>
             <td>${element.category}</td>
             <td><a href="${element.link}">${element.link}</a></td>
@@ -111,5 +149,26 @@ const addActions = () => {
                     });
             }
         })
+    });
+    //  edit option
+    $('.sponsorEdit').click(event => {
+        console.log(event);
+        let id = $(event.target).data('id');
+        fetch(`${baseApiUrl}/conferences/1/sponsors/${id}`, { method: 'GET' })
+            .then(response => response.json())
+            .then(response => {
+                console.log(response);
+                console.log(response[0]);
+                $('#sponsorId').val(response[0].id);
+                $('#sponsorName').val(response[0].name);
+                $('#sponsorLogo').val(response[0].logo);
+                $('#sponsorCategory').val(response[0].category);
+                $('#speakerLink').val(response[0].link);
+                let btnNewSponsor = $('#newSponsor');
+                btnNewSponsor.trigger('click');
+            })
+            .catch(error => {
+                console.log(error);
+            });
     });
 }
